@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.os.PersistableBundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -41,14 +43,14 @@ class SeriaizableActivity : AppCompatActivity() {
             )
         }
         else {
-            savedInstanceState.getSerializable(KEY_STATE) as State
+            savedInstanceState.getParcelable(KEY_STATE)!!
         }
         renderState()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_STATE, state)
+        outState.putParcelable(KEY_STATE, state)
     }
 
     private fun increment(){
@@ -78,7 +80,35 @@ class SeriaizableActivity : AppCompatActivity() {
         var counterValue: Int,
         var counterColor: Int,
         var counterVisible: Boolean
-            ): Serializable
+            ): Parcelable {
+        constructor(parcel: Parcel) : this(
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readByte() != 0.toByte()
+        ) {
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeInt(counterValue)
+            parcel.writeInt(counterColor)
+            parcel.writeByte(if (counterVisible) 1 else 0)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<State> {
+            override fun createFromParcel(parcel: Parcel): State {
+                return State(parcel)
+            }
+
+            override fun newArray(size: Int): Array<State?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
+
     companion object {
         @JvmStatic private val KEY_STATE = "STATE"
     }
