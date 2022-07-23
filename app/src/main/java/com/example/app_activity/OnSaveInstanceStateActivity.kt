@@ -61,7 +61,7 @@ class OnSaveInstanceStateActivity : AppCompatActivity() {
         renderState()
     }
     private fun color(){
-        counterValue = Color.rgb(
+        counterColor = Color.rgb(
             Random.nextInt(256),
             Random.nextInt(256),
             Random.nextInt(256)
@@ -70,9 +70,9 @@ class OnSaveInstanceStateActivity : AppCompatActivity() {
     }
 
     private fun renderState()= with(binding) {
-        btnInc.setText(counterValue.toString())
-        btnColor.setTextColor(counterColor)
-        btnVisibility.visibility = if (counterVisible) View.VISIBLE else View.INVISIBLE
+        tvCounter.setText(counterValue.toString())
+        tvCounter.setTextColor(counterColor)
+        tvCounter.visibility = if (counterVisible) View.VISIBLE else View.INVISIBLE
     }
 
     private fun visibility(){
