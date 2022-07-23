@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.example.app_activity.constance.Constance
 import com.example.app_activity.databinding.ActivityMainBinding
 import kotlin.properties.Delegates
 import kotlin.properties.Delegates.notNull
