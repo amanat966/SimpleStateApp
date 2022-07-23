@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_activity">
         <activity
+            android:name=".SeriaizableActivity"
+            android:exported="true" />
+        <activity
             android:name=".OnSaveInstanceStateActivity"
             android:exported="true" />
         <activity
