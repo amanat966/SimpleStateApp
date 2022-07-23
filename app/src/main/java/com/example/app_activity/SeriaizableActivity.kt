@@ -10,6 +10,7 @@ import android.os.PersistableBundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.app_activity.databinding.ActivityMainBinding
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 import kotlin.properties.Delegates
 import kotlin.properties.Delegates.notNull
@@ -76,38 +77,12 @@ class SeriaizableActivity : AppCompatActivity() {
         state.counterVisible = !state.counterVisible
         renderState()
     }
+    @Parcelize
     class State (
         var counterValue: Int,
         var counterColor: Int,
         var counterVisible: Boolean
-            ): Parcelable {
-        constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readByte() != 0.toByte()
-        ) {
-        }
-
-        override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeInt(counterValue)
-            parcel.writeInt(counterColor)
-            parcel.writeByte(if (counterVisible) 1 else 0)
-        }
-
-        override fun describeContents(): Int {
-            return 0
-        }
-
-        companion object CREATOR : Parcelable.Creator<State> {
-            override fun createFromParcel(parcel: Parcel): State {
-                return State(parcel)
-            }
-
-            override fun newArray(size: Int): Array<State?> {
-                return arrayOfNulls(size)
-            }
-        }
-    }
+            ): Parcelable
 
     companion object {
         @JvmStatic private val KEY_STATE = "STATE"
