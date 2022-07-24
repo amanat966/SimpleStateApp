@@ -58,12 +58,14 @@ class SeriaizableActivity : AppCompatActivity() {
         state.counterValue++
         renderState()
     }
+
     private fun color(){
         state.counterColor = Color.rgb(
             Random.nextInt(256),
             Random.nextInt(256),
             Random.nextInt(256)
         )
+
         renderState()
     }
 
